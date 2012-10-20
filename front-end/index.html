@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>FUCKING AWESOME EMAIL</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+		<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel"stylesheet" href="css/font-awesome-ie7.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<link rel="stylesheet" href="css/isotope.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="js/vendor/modernizr-2.6.1.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+		
+		<header>
+			
+			<ul class="main-menu">
+				<a href="#" class="attachments-pane" rel="tooltip" title="Attachments"><li><i class="icon-folder-open"></i></li></a>
+				<a href="#" class="menu-tooltip" rel="tooltip" title="Trash"><li><i class="icon-trash"></i></li></a>
+				<a href="inner#email-thread-window" rel="clearbox" title="Sent Mail"><li><i class="icon-envelope"></i></li></a>
+				<a href="#" class="inbox-pane" rel="tooltip" title="Inbox"><li><i class="icon-home"></i></li></a>
+				<a href="#" class="menu-tooltip" rel="tooltip" title="Compose"><li><i class="icon-file"></i></li></a>
+			</ul>
+			
+			<a href="#"><img src="img/profilepic.jpeg" /></a>
+			
+			<form class="search">
+				<input type="text" class="email-search rounded-corners"><a href="#" class="button"><i class="icon-search"></i></a>
+			</form>
+			
+			<ul class="streams">
+				<a href="#" class="menu-tooltip" rel="tooltip" title="Facebook"><li><i class="icon-facebook"></i><span class="fb-pop notification"></span></li></a>
+				<a href="#" class="menu-tooltip" rel="tooltip" title="Github"><li><i class="icon-github"></i><span class="git-pop notification"></span></li></a>
+				<a href="#" class="menu-tooltip" rel="tooltip" title="Twitter"><li><i class="icon-twitter"></i><span class="twit-pop notification"></span></li></a>
+				<a href="#" class="menu-tooltip" rel="tooltip" title="LinkedIn"><li><i class="icon-linkedin"></i><span class="li-pop notification"></span></li></a>
+			</ul>
+		</header>
+
+        <section class="email-window body-window">
+			
+			<div class="email rounded-corners">
+				<div class="sender">Bob Dole</div>
+				<div class="subject">Try out my bananas</div>
+				<div class="content">These bananas are just so delicious and awesome and everyone wants them!</div>
+			</div>
+			
+		</section>
+		
+		<section class="attachment-window body-window">
+			
+			
+			
+		</section>
+		
+		<section id="email-thread-window body-window">
+			<div class="message rounded-corners">
+					<h3>Bob Dole</h3>
+					<hr>
+					<h4>Have you tried my bananas yet?</h4>
+				<p>Seriously, they're fucking amazing. You should really try them right now.</p>
+			</div>
+		</section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+		<script id="menu-template" type="text/x-handlebars-template">
+			
+		</script>
+		
+		<script id="mail-template" type="text/x-handlebars-template">
+			{{#each results}}
+				{{#if read}}
+				{{{read-labels fromDomain messageId}}}
+					{{#if from.name}}
+						<div class="sender">{{{thumbnails thumbnails.from}}}{{from.name}}</div>
+					{{else}}
+						<div class="sender">{{{thumbnails thumbnails.from}}}{{from.email}}</div>
+					{{/if}}
+					<div class="subject">{{subject}}</div>
+					<div class="content">{{strip body}}</div>
+					<div class="messageId">{{messageId}}</div>
+				</div></a>
+				{{else}}
+				{{{unread-labels fromDomain messageId}}}
+					<div class="sender">{{{thumbnails thumbnails.from}}}{{from.name}}</div>
+					<div class="subject">{{subject}}</div>
+					<div class="content">{{strip body}}</div>
+					<div class="messageId">{{messageId}}</div>
+					<div class="threadId">{{threadId}}</div>
+				</div>
+				{{/if}}
+			{{/each}}
+		</script>
+		
+		<script id="attachment-template" type="text/x-handlebars-template">
+		<h3>Attachments</h3>
+		<hr>
+		<ul class="attachment-list">
+		{{#each results}}
+			{{#each files}}
+				<li><a href="#">{{{extension file_name}}}</a><div class="fileId">{{file_id}}</div><span class="emailDirect"><a href="#">E-mail</a><div class="messageId">{{../messageId}}</div><div class="threadId">{{../threadId}}</div></span></li>
+			{{/each}}
+		{{/each}}
+		</ul>
+		</script>
+		
+		<script id="email-thread-template" type="text/x-handlebars-template">
+		
+		{{#each results}}
+		<div class="message rounded-corners">
+			
+		</div>
+		{{/each}}
+			
+		<div class="message rounded-corners">
+				<h3>Bob Dole</h3>
+				<hr>
+				<h4>Have you tried my bananas yet?</h4>
+			<p>Seriously, theyre fucking amazing. You should really try them right now.</p>
+		</div>
+			
+			
+		</script>
+		
+		<script src="js/vendor/bootstrap.min.js"></script>
+		<script src="js/vendor/jquery.isotope.min.js"></script>
+		<script src="js/vendor/clearbox.js"></script>
+        <script src="js/plugins.js"></script>
+		<script src="js/vendor/handlebars.js"></script>
+        <script src="js/main.js"></script>
+	
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
