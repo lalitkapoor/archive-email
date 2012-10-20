@@ -1,5 +1,6 @@
 var
   util = require('util')
+, http = require('http')
 , express = require('express')
 , app = express()
 , router = require('./router')
@@ -16,6 +17,6 @@ app.configure(function(){
 
 router.init(app);
 
-http.createServer(app).listen(app.get('port')), function(){
+http.createServer(app).listen(app.get('port'), function(){
   console.log("server started on port " + app.get('port'));
 });
