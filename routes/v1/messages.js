@@ -29,7 +29,7 @@ messages.list = function (req, res){
         results.push({
           to: message.addresses.to
         , from: message.addresses.from
-        , fromDomain: message.addresses.from.email.match(/@(\w*)\./)[2]
+        , fromDomain: message.addresses.from.email.match(/@(\w*)\./)[1]
         , subject: message.subject
         , messageId: message.message_id
         , threadId: message.gmail_thread_id
