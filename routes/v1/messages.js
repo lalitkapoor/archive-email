@@ -27,7 +27,7 @@ messages.list = function (req, res){
       for(var i=0; i<response.body.length; i++){
         var message = response.body[i];
         results.push({
-          to: message.addresses.to
+          to: message.addresses.to[0]
         , from: message.addresses.from
         , fromDomain: message.addresses.from.email.match(/@(\w*)\./)[1]
         , subject: message.subject
@@ -37,7 +37,11 @@ messages.list = function (req, res){
         , body: sanitize(message.body[0].content.replace(/(\r\n|\n|\r)/gm,"").replace(/(\t)/gm, " ")).trim().substr(0, 140)
         , read: (message.flags && message.flags[0] != null && message.flags[0] === '\\Seen') ? true : false
         , labels: message.folders
-        , thumbnails: message.person_info
+        , thumbnails: {
+            to: message.person_info[message.addresses.to[0].email].thumbnail
+          , from: message.person_info[message.addresses.from.email].thumbnail
+          }
+        , t: message.person_info
         , files: message.files
         });
       }
