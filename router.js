@@ -15,9 +15,11 @@ router.init = function(app){
 
     next();
   });
-  //Messages
+
+  // Messages
   app.get('/v1/:id/messages', routes.v1.messages.list);
   app.get('/v1/:id/messages/:messageId', routes.v1.messages.get);
+  app.get('/v1/:id/messages/:messageId/thread', routes.v1.messages.getThread);
 };
 
 module.exports = router;
