@@ -28,6 +28,7 @@ function fetch(accountId, attempt){
   console.log("attempt #"+attempt);
   if(attempt>2){
     console.log("attempted to fetch data 3 times now -- something is wrong with context.io");
+    process.exit(1);
     return;
   }
   context.accounts(accountId).messages().get(
