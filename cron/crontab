@@ -1,0 +1,2 @@
+# add the following to your crontab and update the path to the fetchInbox.js file
+*/5 * * * * node /email/cron/fetchInbox.js
