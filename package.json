@@ -19,8 +19,11 @@
     "node": "~v0.6.21"
   },
   "dependencies": {
-    "contextio": "~0.3.0",
-    "express": "~3.0.0rc5"
+    "contextio": "=0.3.0",
+    "express": "=3.0.0rc5",
+    "hiredis": "=0.1.14",
+    "redis": "=0.8.1",
+    "validator": "=0.4.13"
   },
   "devDependencies": {}
 }

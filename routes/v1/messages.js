@@ -1,6 +1,7 @@
 var
   // App Dependencies
   util = require('util')
+, sanitize = require('validator').sanitize
 , context = require('../../context')
 
   // Module variables
@@ -12,6 +13,7 @@ messages.get = function (req, res){
     {
       folder: req.params.folder
     , include_body: 1
+    , include_flags: 1
     }
   , function(err, response){
       var results = [];
@@ -23,8 +25,9 @@ messages.get = function (req, res){
         , subject: message.subject
         , message_id: message.message_id
         , date: new Date(message.date*1000)
-        , body: message.body[0].content
-        })
+        , body: sanitize(message.body[0].content.replace(/(\r\n|\n|\r)/gm,"").replace(/(\t)/gm, " ")).trim().substr(0, 140)
+        , read: (message.flags && message.flags[0] != null && message.flags[0] === '\\Seen') ? true : false
+        });
       }
       //console.log(util.inspect(response.body, false, null, true));
       res.json(results);
