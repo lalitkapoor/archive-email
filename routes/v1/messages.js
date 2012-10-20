@@ -27,6 +27,7 @@ messages.get = function (req, res){
         , date: new Date(message.date*1000)
         , body: sanitize(message.body[0].content.replace(/(\r\n|\n|\r)/gm,"").replace(/(\t)/gm, " ")).trim().substr(0, 140)
         , read: (message.flags && message.flags[0] != null && message.flags[0] === '\\Seen') ? true : false
+        , labels: message.folders
         });
       }
       //console.log(util.inspect(response.body, false, null, true));
