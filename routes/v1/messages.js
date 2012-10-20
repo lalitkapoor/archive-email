@@ -3,29 +3,26 @@ var
   util = require('util')
 , sanitize = require('validator').sanitize
 , context = require('../../context')
+, redis = require('redis').createClient()
 
   // Module variables
 , messages =  {}
 ;
 
 messages.list = function (req, res){
-  context.accounts(req.params.id).messages().get(
-    {
-      folder: req.query.folder || req.query.tag
-    , include_body: 1
-    , include_flags: 1
-    , limit: req.query.limit || 25
-    , offset: req.query.offset || 0
-    }
+  redis.LRANGE("messages-"+req.params.id
+  , 0
+  , -1
   , function(err, response){
+      console.log(util.inspect(JSON.parse(response[0]), false, null, true));
       var results = [];
       if (err){
         console.log(util.inspect(err, false, null, true));
         res.json([]);
         return;
       }
-      for(var i=0; i<response.body.length; i++){
-        var message = response.body[i];
+      for(var i=0; i<response.length; i++){
+        var message = JSON.parse(response[i]);
         results.push({
           to: message.addresses.to
         , from: message.addresses.from
@@ -41,7 +38,7 @@ messages.list = function (req, res){
         });
       }
       //console.log(util.inspect(response.body, false, null, true));
-      res.json(response.body);
+      res.json(results);
     }
   );
 };
