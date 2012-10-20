@@ -32,11 +32,12 @@ messages.list = function (req, res){
         , fromDomain: message.addresses.from.email.match(/@(\w*)\./)[2]
         , subject: message.subject
         , messageId: message.message_id
+        , threadId: message.gmail_thread_id
         , date: new Date(message.date*1000)
         , body: sanitize(message.body[0].content.replace(/(\r\n|\n|\r)/gm,"").replace(/(\t)/gm, " ")).trim().substr(0, 140)
         , read: (message.flags && message.flags[0] != null && message.flags[0] === '\\Seen') ? true : false
         , labels: message.folders
-        , tumbnails: message.personal_info
+        , tumbnails: message.person_info
         , files: message.files
         });
       }
